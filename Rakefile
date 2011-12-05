@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require "rubygems"
 require "bundler/setup"
 require "stringex"
@@ -93,7 +94,7 @@ task :new_post, :title do |t, args|
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
   mkdir_p "#{source_dir}/#{posts_dir}"
   args.with_defaults(:title => 'new-post')
-  title = args.title
+  title = args.title.force_encoding("UTF-8")
   filename = "#{source_dir}/#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}"
   if File.exist?(filename)
     abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
